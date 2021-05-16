@@ -3,6 +3,7 @@ package game.misc;
 import game.Board;
 
 public class Position {
+  private final int LOWERCASE_CONSTANT = 97;
   private int row;
   private int column;
 
@@ -27,12 +28,28 @@ public class Position {
     this.column = column;
   }
 
+  public void moveLeft() {
+    this.column--;
+  }
+
+  public void moveRight() {
+    this.column++;
+  }
+
+  public void moveUp() {
+    this.row++;
+  }
+
+  public void moveDown() {
+    this.row--;
+  }
+
   public boolean isOutOfBounds(Board board) {
     // row and column are 0-indexed
     return row < 0
-        && row >= board.getNoRows()
-        && column < 0
-        && column >= board.getNoCols();
+        || row >= board.getNoRows()
+        || column < 0
+        || column >= board.getNoCols();
   }
 
   @Override
@@ -49,4 +66,19 @@ public class Position {
     return new Position(row, column);
   }
 
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb
+        .append((char) (column + LOWERCASE_CONSTANT))
+        .append(row + 1);
+
+    return sb.toString();
+  }
+
+  // Testing
+  public static void main(String[] args) {
+    Position p = new Position(3, 6);
+    System.out.println(p);
+  }
 }

@@ -25,4 +25,17 @@ public class Move {
     this.posTo = posTo;
     // this.moveTypes = moveTypes;
   }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+
+    sb
+        .append(piece)
+        .append(piece.getPosition())
+        .append("-")
+        .append(posTo);
+
+    return sb.toString();
+  }
 }

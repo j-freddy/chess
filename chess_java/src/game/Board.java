@@ -29,8 +29,8 @@ public class Board {
     pieces.add(new Rook(Colour.WHITE, new Position(0, 0)));
     pieces.add(new Rook(Colour.WHITE, new Position(0, 7)));
 
-    pieces.add(new Rook(Colour.BLACK, new Position(7, 0)));
-    pieces.add(new Rook(Colour.BLACK, new Position(7, 7)));
+    pieces.add(new Rook(Colour.BLACK, new Position(5, 0)));
+    pieces.add(new Rook(Colour.BLACK, new Position(5, 7)));
   }
 
   public Optional<Piece> findPieceAtPosition(Position position) {
@@ -60,7 +60,7 @@ public class Board {
         if (maybePiece.isPresent()) {
           Piece piece = maybePiece.get();
           sb
-              .append(piece.toString())
+              .append(piece)
               .append(" ");
         } else {
           sb.append("* ");
@@ -77,5 +77,8 @@ public class Board {
   public static void main(String[] args) {
     Board b = new Board();
     System.out.println(b);
+
+    List<Move> validMoves = b.pieces.get(1).getValidMoves(b);
+    System.out.println(validMoves);
   }
 }

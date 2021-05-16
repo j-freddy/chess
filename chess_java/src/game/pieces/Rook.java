@@ -38,37 +38,49 @@ public class Rook implements Piece {
   public List<Move> getValidMoves(Board board) {
     ArrayList<Move> moves = new ArrayList<>();
 
-    Position newPos = position.copy();
+    Position newPos;
 
-    // Traverse left
-    while (true) {
-      // We can move first, since we don't have to validate our starting position
-      // In fact, if we don't move first, it gets messed up
-      // since the board detects our current piece at the start position
-      newPos.setRow(newPos.getRow() - 1);
+    // 4 iterations – once for each direction (left, right, up, down)
+    for (int i = 0; i < 4; i++) {
+      newPos = position.copy();
 
-      if (newPos.isOutOfBounds(board)) {
-        break;
-      }
+      while (true) {
+        // We can move first, since we don't have to validate our starting position
+        // In fact, if we don't move first, it gets messed up
+        // since the board detects our current piece at the start position
+        newPos = newPos.copy();
 
-      Move move = new Move(this, newPos);
+        if (i == 0) {
+          newPos.moveLeft();
+        } else if (i == 1) {
+          newPos.moveRight();
+        } else if (i == 2) {
+          newPos.moveUp();
+        } else {
+          newPos.moveDown();
+        }
 
-      Optional<Piece> maybePiece = board.findPieceAtPosition(newPos);
+        if (newPos.isOutOfBounds(board)) {
+          break;
+        }
 
-      if (maybePiece.isPresent()) {
-        Piece piece = maybePiece.get();
+        Move move = new Move(this, newPos);
 
-        if (piece.getColour().equals(getColour())) {
+        Optional<Piece> maybePiece = board.findPieceAtPosition(newPos);
+
+        if (maybePiece.isPresent()) {
+          Piece piece = maybePiece.get();
+
+          if (!piece.getColour().equals(getColour())) {
+            // Different colour means we can capture piece
+            moves.add(move);
+          }
           // Same colour means we stop immediately
           break;
         } else {
-          // Different colour means we can capture piece
+          // We didn't hit a piece, so continue
           moves.add(move);
-          break;
         }
-      } else {
-        // We didn't hit a piece, so continue
-        moves.add(move);
       }
     }
 
