@@ -28,20 +28,25 @@ public class Position {
     this.column = column;
   }
 
-  public void moveLeft() {
+  // Allows chaining
+  public Position moveLeft() {
     this.column--;
+    return this;
   }
 
-  public void moveRight() {
+  public Position moveRight() {
     this.column++;
+    return this;
   }
 
-  public void moveUp() {
+  public Position moveUp() {
     this.row++;
+    return this;
   }
 
-  public void moveDown() {
+  public Position moveDown() {
     this.row--;
+    return this;
   }
 
   public boolean isOutOfBounds(Board board) {

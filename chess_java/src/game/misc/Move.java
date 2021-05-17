@@ -26,6 +26,10 @@ public class Move {
     // this.moveTypes = moveTypes;
   }
 
+  public void setPiece(Piece piece) {
+    this.piece = piece;
+  }
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();

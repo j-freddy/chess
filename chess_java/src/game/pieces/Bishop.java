@@ -9,41 +9,42 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class Rook extends DefaultPiece implements Piece {
+public class Bishop extends DefaultPiece implements Piece {
 
-  public Rook (Colour colour, Position position) {
+  public Bishop (Colour colour, Position position) {
     super(colour, position);
   }
 
   @Override
   public PieceType getPieceType() {
-    return PieceType.ROOK;
+    return PieceType.BISHOP;
   }
 
+  // See Rook for comments
   @Override
   public List<Move> getValidMoves(Board board) {
     ArrayList<Move> moves = new ArrayList<>();
 
     Position newPos;
 
-    // 4 iterations – once for each direction (left, right, up, down)
     for (int i = 0; i < 4; i++) {
       newPos = position.copy();
 
       while (true) {
-        // We can move first, since we don't have to validate our starting position
-        // In fact, if we don't move first, it gets messed up
-        // since the board detects our current piece at the start position
         newPos = newPos.copy();
 
         if (i == 0) {
-          newPos.moveLeft();
+          // Left-up
+          newPos.moveLeft().moveUp();
         } else if (i == 1) {
-          newPos.moveRight();
+          // Right-up
+          newPos.moveRight().moveUp();
         } else if (i == 2) {
-          newPos.moveUp();
+          // Left-down
+          newPos.moveLeft().moveDown();
         } else {
-          newPos.moveDown();
+          // Right-down
+          newPos.moveRight().moveDown();
         }
 
         if (newPos.isOutOfBounds(board)) {
@@ -58,13 +59,10 @@ public class Rook extends DefaultPiece implements Piece {
           Piece piece = maybePiece.get();
 
           if (!piece.getColour().equals(getColour())) {
-            // Different colour means we can capture piece
             moves.add(move);
           }
-          // Same colour means we stop immediately
           break;
         } else {
-          // We didn't hit a piece, so continue
           moves.add(move);
         }
       }
@@ -76,9 +74,9 @@ public class Rook extends DefaultPiece implements Piece {
   @Override
   public String toString() {
     if (colour.equals(Colour.WHITE)) {
-      return "R";
+      return "B";
     } else {
-      return "r";
+      return "b";
     }
   }
 }
