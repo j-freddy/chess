@@ -2,15 +2,22 @@ package app;
 
 import game.Board;
 import game.Game;
+import game.misc.Colour;
 import game.misc.Position;
 import game.pieces.Piece;
+import game.pieces.PieceType;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Pair;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main extends Application {
 
@@ -26,10 +33,25 @@ public class Main extends Application {
   private final Color colourCellLight = Color.rgb(233, 207, 190);
   private final Color colourCellDark = Color.rgb(172, 135, 72);
 
+  /* ---------- Images ---------- */
+  private final Map<Pair<PieceType, Colour>, Image> pieceImages = new HashMap<>();
+
   private Game game;
 
   public Main() {
     game = new Game();
+
+    // Dictionary of Piece images
+    /**
+     * Staunty Chess pieces, LiChess
+     * https://github.com/ornicar/lila/tree/master/public/piece/staunty
+     */
+    pieceImages.put(new Pair<>(PieceType.BISHOP, Colour.WHITE), new Image("file:img/wB.png"));
+    pieceImages.put(new Pair<>(PieceType.KNIGHT, Colour.WHITE), new Image("file:img/wN.png"));
+    pieceImages.put(new Pair<>(PieceType.QUEEN , Colour.WHITE), new Image("file:img/wQ.png"));
+    pieceImages.put(new Pair<>(PieceType.ROOK  , Colour.WHITE), new Image("file:img/wR.png"));
+
+    pieceImages.put(new Pair<>(PieceType.ROOK  , Colour.BLACK), new Image("file:img/bR.png"));
   }
 
   private int getCellWidth() {
@@ -54,6 +76,13 @@ public class Main extends Application {
         return colourCellDark;
       }
     }
+  }
+
+  private Image getImageOfPiece(Piece piece) {
+    Pair<PieceType, Colour> key = new Pair<>(piece.getPieceType(), piece.getColour());
+    Image img = pieceImages.get(key);
+
+    return img;
   }
 
   // Draws board (without pieces)
@@ -83,11 +112,17 @@ public class Main extends Application {
     for (Piece piece : board.getPieces()) {
       Position pos = piece.getPosition();
 
-      // Temporary
       int x = getCellWidth() * pos.getColumn();
       int y = boardHeight - getCellHeight() * (pos.getRow() + 1);
-      ctx.setFill(Color.BLACK);
-      ctx.fillRect(x, y, getCellWidth(), getCellHeight());
+
+      Image img = getImageOfPiece(piece);
+
+      if (img != null) {
+        ctx.drawImage(img, x, y, getCellWidth(), getCellHeight());
+      } else {
+        ctx.setFill(Color.BLACK);
+        ctx.fillRect(x, y, getCellWidth(), getCellHeight());
+      }
     }
   }
 
