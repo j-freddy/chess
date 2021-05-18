@@ -2,6 +2,7 @@ package game.misc;
 
 import game.pieces.Piece;
 
+import java.util.Objects;
 import java.util.Set;
 
 public class Move {
@@ -26,8 +27,31 @@ public class Move {
     // this.moveTypes = moveTypes;
   }
 
+  public Piece getPiece() {
+    return piece;
+  }
+
+  public Position getPosTo() {
+    return posTo;
+  }
+
   public void setPiece(Piece piece) {
     this.piece = piece;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof Move) {
+      return piece.equals(((Move) o).piece)
+          && posTo.equals(((Move) o).posTo);
+    } else {
+      return false;
+    }
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(piece, posTo);
   }
 
   @Override

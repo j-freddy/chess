@@ -33,7 +33,24 @@ public class DefaultPiece implements Piece {
   }
 
   @Override
+  public void setPosition(Position position) {
+    this.position = position;
+  }
+
+  @Override
   public List<Move> getValidMoves(Board board) {
     return null;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (o instanceof Piece) {
+      // Same piece if in the same position and same piece type
+      // (latter is optional)
+      return position.equals(((Piece) o).getPosition())
+          && getPieceType().equals(((Piece) o).getPieceType());
+    } else {
+      return false;
+    }
   }
 }

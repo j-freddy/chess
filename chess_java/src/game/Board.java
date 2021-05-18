@@ -29,6 +29,10 @@ public class Board {
     return pieces;
   }
 
+  public void removePiece(Piece piece) {
+    pieces.remove(piece);
+  }
+
   private void setUpBoard() {
     pieces.add(new Knight(Colour.WHITE, new Position(3, 1)));
 
