@@ -2,6 +2,8 @@ package game.misc;
 
 import game.Board;
 
+// Position is 0-indexed
+// (3, 5) means f4
 public class Position {
   private final int LOWERCASE_CONSTANT = 97;
   private int row;

@@ -19,6 +19,10 @@ public class Player {
     this.board = board;
   }
 
+  public Colour getColour() {
+    return colour;
+  }
+
   public List<Move> getValidMoves() {
     ArrayList<Move> moves = new ArrayList<>();
 

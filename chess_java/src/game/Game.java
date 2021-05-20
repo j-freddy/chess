@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Random;
 
 public class Game {
+  private Random random = new Random();
+
   private Board board;
   private Player playerWhite;
   private Player playerBlack;
@@ -21,6 +23,10 @@ public class Game {
 
   public Board getBoard() {
     return board;
+  }
+
+  public Player getPlayerTurn() {
+    return playerTurn;
   }
 
   private void switchPlayers() {
@@ -42,6 +48,16 @@ public class Game {
     }
   }
 
+  public Move makeRandomValidMove() {
+    List<Move> validMoves = playerTurn.getValidMoves();
+    Move chosenMove = validMoves.get(random.nextInt(validMoves.size()));
+
+    boolean success = makeMove(chosenMove);
+    assert success;
+
+    return chosenMove;
+  }
+
   @Override
   public String toString() {
     return board.toString();
@@ -55,11 +71,7 @@ public class Game {
     System.out.println(game);
 
     for (int i = 0; i < 4; i++) {
-      List<Move> validMoves = game.playerTurn.getValidMoves();
-      Move chosenMove = validMoves.get(random.nextInt(validMoves.size()));
-
-      boolean success = game.makeMove(chosenMove);
-      System.out.println(success);
+      Move chosenMove = game.makeRandomValidMove();
 
       // Small error: Once you make the move, the chosen move display becomes different.
       // It becomes of the form [Piece][PosTo]-[PosTo] rather than [Piece][PosFrom]-[PosTo]
