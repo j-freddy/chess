@@ -38,10 +38,10 @@ public class Board {
   }
 
   private void setUpBoard() {
-    pieces.add(new Knight(Colour.WHITE, new Position(3, 1)));
-
     pieces.add(new Rook  (Colour.WHITE, new Position(0, 0)));
     pieces.add(new Rook  (Colour.WHITE, new Position(0, 7)));
+    pieces.add(new Knight(Colour.WHITE, new Position(0, 1)));
+    pieces.add(new Knight(Colour.WHITE, new Position(0, 6)));
     pieces.add(new Bishop(Colour.WHITE, new Position(0, 2)));
     pieces.add(new Bishop(Colour.WHITE, new Position(0, 5)));
     pieces.add(new Queen (Colour.WHITE, new Position(0, 3)));
@@ -49,6 +49,8 @@ public class Board {
 
     pieces.add(new Rook  (Colour.BLACK, new Position(7, 0)));
     pieces.add(new Rook  (Colour.BLACK, new Position(7, 7)));
+    pieces.add(new Knight(Colour.BLACK, new Position(7, 1)));
+    pieces.add(new Knight(Colour.BLACK, new Position(7, 6)));
     pieces.add(new Bishop(Colour.BLACK, new Position(7, 2)));
     pieces.add(new Bishop(Colour.BLACK, new Position(7, 5)));
     pieces.add(new Queen (Colour.BLACK, new Position(7, 3)));

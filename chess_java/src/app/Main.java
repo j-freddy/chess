@@ -48,10 +48,15 @@ public class Main extends Application {
      * https://github.com/ornicar/lila/tree/master/public/piece/staunty
      */
     pieceImages.put(new Pair<>(PieceType.BISHOP, Colour.WHITE), new Image("file:img/wB.png"));
+    pieceImages.put(new Pair<>(PieceType.KING  , Colour.WHITE), new Image("file:img/wK.png"));
     pieceImages.put(new Pair<>(PieceType.KNIGHT, Colour.WHITE), new Image("file:img/wN.png"));
     pieceImages.put(new Pair<>(PieceType.QUEEN , Colour.WHITE), new Image("file:img/wQ.png"));
     pieceImages.put(new Pair<>(PieceType.ROOK  , Colour.WHITE), new Image("file:img/wR.png"));
 
+    pieceImages.put(new Pair<>(PieceType.BISHOP, Colour.BLACK), new Image("file:img/bB.png"));
+    pieceImages.put(new Pair<>(PieceType.KING  , Colour.BLACK), new Image("file:img/bK.png"));
+    pieceImages.put(new Pair<>(PieceType.KNIGHT, Colour.BLACK), new Image("file:img/bN.png"));
+    pieceImages.put(new Pair<>(PieceType.QUEEN , Colour.BLACK), new Image("file:img/bQ.png"));
     pieceImages.put(new Pair<>(PieceType.ROOK  , Colour.BLACK), new Image("file:img/bR.png"));
   }
 
