@@ -17,6 +17,10 @@ public class Board {
     this.setUpBoard();
   }
 
+  public Board (ArrayList<Piece> pieces) {
+    this.pieces = pieces;
+  }
+
   public int getNoRows() {
     return noRows;
   }
@@ -36,14 +40,19 @@ public class Board {
   private void setUpBoard() {
     pieces.add(new Knight(Colour.WHITE, new Position(3, 1)));
 
-    pieces.add(new Rook(Colour.WHITE, new Position(0, 0)));
-    pieces.add(new Rook(Colour.WHITE, new Position(0, 7)));
+    pieces.add(new Rook  (Colour.WHITE, new Position(0, 0)));
+    pieces.add(new Rook  (Colour.WHITE, new Position(0, 7)));
     pieces.add(new Bishop(Colour.WHITE, new Position(0, 2)));
     pieces.add(new Bishop(Colour.WHITE, new Position(0, 5)));
-    pieces.add(new Queen(Colour.WHITE, new Position(0, 3)));
+    pieces.add(new Queen (Colour.WHITE, new Position(0, 3)));
+    pieces.add(new King  (Colour.WHITE, new Position(0, 4)));
 
-    pieces.add(new Rook(Colour.BLACK, new Position(5, 0)));
-    pieces.add(new Rook(Colour.BLACK, new Position(5, 7)));
+    pieces.add(new Rook  (Colour.BLACK, new Position(7, 0)));
+    pieces.add(new Rook  (Colour.BLACK, new Position(7, 7)));
+    pieces.add(new Bishop(Colour.BLACK, new Position(7, 2)));
+    pieces.add(new Bishop(Colour.BLACK, new Position(7, 5)));
+    pieces.add(new Queen (Colour.BLACK, new Position(7, 3)));
+    pieces.add(new King  (Colour.BLACK, new Position(7, 4)));
   }
 
   public Optional<Piece> findPieceAtPosition(Position position) {
@@ -59,6 +68,28 @@ public class Board {
     } else {
       return Optional.of(foundPieces.get(0));
     }
+  }
+
+  public King getKing(Colour colour) {
+    List<Piece> kings = pieces
+        .stream()
+        .filter(piece -> piece.getColour().equals(colour))
+        .filter(piece -> piece.getPieceType().equals(PieceType.KING))
+        .collect(Collectors.toList());
+
+    assert kings.size() == 1;
+    assert kings.get(0) instanceof King;
+    return (King) kings.get(0);
+  }
+
+  public Board copy() {
+    ArrayList<Piece> piecesCopy = new ArrayList<Piece>();
+
+    for (Piece piece : pieces) {
+      piecesCopy.add(piece.copy());
+    }
+
+    return new Board(piecesCopy);
   }
 
   @Override
@@ -88,7 +119,8 @@ public class Board {
 
   // Testing
   public static void main(String[] args) {
-    Board b = new Board();
+    Board board = new Board();
+    Board b = board.copy();
     System.out.println(b);
 
     List<Move> validMoves = b.pieces.get(0).getValidMoves(b);

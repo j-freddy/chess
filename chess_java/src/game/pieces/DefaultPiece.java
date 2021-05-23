@@ -43,6 +43,11 @@ public class DefaultPiece implements Piece {
   }
 
   @Override
+  public Piece copy() {
+    return new DefaultPiece(colour, position.copy());
+  }
+
+  @Override
   public boolean equals(Object o) {
     if (o instanceof Piece) {
       // Same piece if in the same position and same piece type

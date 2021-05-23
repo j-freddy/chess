@@ -65,6 +65,10 @@ public class Knight extends DefaultPiece implements Piece {
     return moves;
   }
 
+  public Piece copy() {
+    return new Knight(colour, position.copy());
+  }
+
   @Override
   public String toString() {
     if (colour.equals(Colour.WHITE)) {

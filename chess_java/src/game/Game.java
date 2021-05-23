@@ -67,6 +67,7 @@ public class Game {
   public static void main(String[] args) {
     Random random = new Random();
     Game game = new Game();
+    Board boardCopy = game.board.copy();
 
     System.out.println(game);
 
@@ -78,6 +79,8 @@ public class Game {
       System.out.println(chosenMove);
       System.out.println(game);
     }
+
+    System.out.println(boardCopy);
 
   }
 

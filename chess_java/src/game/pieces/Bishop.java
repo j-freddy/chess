@@ -71,6 +71,10 @@ public class Bishop extends DefaultPiece implements Piece {
     return moves;
   }
 
+  public Piece copy() {
+    return new Bishop(colour, position.copy());
+  }
+
   @Override
   public String toString() {
     if (colour.equals(Colour.WHITE)) {

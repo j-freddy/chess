@@ -36,6 +36,10 @@ public class Queen extends DefaultPiece implements Piece {
     return moves;
   }
 
+  public Piece copy() {
+    return new Queen(colour, position.copy());
+  }
+
   @Override
   public String toString() {
     if (colour.equals(Colour.WHITE)) {

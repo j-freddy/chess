@@ -73,6 +73,10 @@ public class Rook extends DefaultPiece implements Piece {
     return moves;
   }
 
+  public Piece copy() {
+    return new Rook(colour, position.copy());
+  }
+
   @Override
   public String toString() {
     if (colour.equals(Colour.WHITE)) {

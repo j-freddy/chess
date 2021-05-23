@@ -13,8 +13,5 @@ public interface Piece {
   Position getPosition();
   void setPosition(Position position);
   List<Move> getValidMoves(Board board);
-
-  default boolean isOutOfBounds(Board board) {
-    return getPosition().isOutOfBounds(board);
-  }
+  Piece copy();
 }

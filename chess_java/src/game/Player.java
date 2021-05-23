@@ -35,8 +35,8 @@ public class Player {
     return moves;
   }
 
-  public boolean makeMove(Move move) {
-    if (!getValidMoves().contains(move)) {
+  public boolean makeMove(Move move, boolean mustBeValid) {
+    if (mustBeValid && !getValidMoves().contains(move)) {
       // Trying to make an invalid move
       return false;
     }
@@ -52,6 +52,10 @@ public class Player {
     move.getPiece().setPosition(move.getPosTo());
 
     return true;
+  }
+
+  public boolean makeMove(Move move) {
+    return makeMove(move, true);
   }
 
   @Override
