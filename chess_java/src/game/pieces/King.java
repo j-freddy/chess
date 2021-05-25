@@ -115,6 +115,7 @@ public class King extends DefaultPiece implements Piece {
     return false;
   }
 
+  @Override
   public Piece copy() {
     return new King(colour, position.copy());
   }

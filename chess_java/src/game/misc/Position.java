@@ -51,6 +51,14 @@ public class Position {
     return this;
   }
 
+  public Position moveForward(Colour colour) {
+    if (colour.equals(Colour.WHITE)) {
+      return moveUp();
+    } else {
+      return moveDown();
+    }
+  }
+
   public boolean isOutOfBounds(Board board) {
     // row and column are 0-indexed
     return row < 0

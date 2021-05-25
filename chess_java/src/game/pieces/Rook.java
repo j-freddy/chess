@@ -73,6 +73,7 @@ public class Rook extends DefaultPiece implements Piece {
     return moves;
   }
 
+  @Override
   public Piece copy() {
     return new Rook(colour, position.copy());
   }

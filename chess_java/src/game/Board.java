@@ -55,6 +55,11 @@ public class Board {
     pieces.add(new Bishop(Colour.BLACK, new Position(7, 5)));
     pieces.add(new Queen (Colour.BLACK, new Position(7, 3)));
     pieces.add(new King  (Colour.BLACK, new Position(7, 4)));
+
+    for (int i = 0; i < noCols; i++) {
+      pieces.add(new Pawn(Colour.WHITE, new Position(1, i)));
+      pieces.add(new Pawn(Colour.BLACK, new Position(6, i)));
+    }
   }
 
   public Optional<Piece> findPieceAtPosition(Position position) {
