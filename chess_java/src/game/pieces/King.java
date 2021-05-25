@@ -42,10 +42,7 @@ public class King extends DefaultPiece implements Piece {
     return pos;
   }
 
-  // We make a copy of the board
-  // We make a move, then check if that move causes the King to be in check.
-  @Override
-  public List<Move> getValidMoves(Board board) {
+  private List<Move> getValidMoves(Board board, boolean canMoveIntoCheck) {
     ArrayList<Move> moves = new ArrayList<>();
 
     for (int i = 0; i < 8; i++) {
@@ -55,22 +52,25 @@ public class King extends DefaultPiece implements Piece {
 
       // King cannot be in check after move
       // Move must not be out of bounds
-      if (!kingCopy.isInCheck(boardCopy) && !newPos.isOutOfBounds(board)) {
-        // The rest of the code is same as Knight
-        Move move = new Move(this, newPos);
+      // We make use of lazy evaluation
+      if (canMoveIntoCheck || !kingCopy.isInCheck(boardCopy)) {
+        if (!newPos.isOutOfBounds(board)) {
+          // The rest of the code is same as Knight
+          Move move = new Move(this, newPos);
 
-        Optional<Piece> maybePiece = board.findPieceAtPosition(newPos);
+          Optional<Piece> maybePiece = board.findPieceAtPosition(newPos);
 
-        if (maybePiece.isPresent()) {
-          Piece piece = maybePiece.get();
+          if (maybePiece.isPresent()) {
+            Piece piece = maybePiece.get();
 
-          if (!piece.getColour().equals(getColour())) {
-            // Different colour means move is valid (capture)
-            moves.add(move);
-          }
-        } else {
+            if (!piece.getColour().equals(getColour())) {
+              // Different colour means move is valid (capture)
+              moves.add(move);
+            }
+          } else {
             // We didn't hit a piece, so move is valid
             moves.add(move);
+          }
         }
       }
     }
@@ -78,16 +78,28 @@ public class King extends DefaultPiece implements Piece {
     return moves;
   }
 
-  public boolean isInCheck(Board board) {
-    // Infinite loop
-    // We get valid moves of other King, which calls isInCheck
-    return false;
+  // We make a copy of the board
+  // We make a move, then check if that move causes the King to be in check.
+  @Override
+  public List<Move> getValidMoves(Board board) {
+    return getValidMoves(board, false);
+  }
 
-    /*
+  public boolean isInCheck(Board board) {
     for (Piece piece : board.getPieces()) {
       if (!piece.getColour().equals(colour)) {
+        List<Move> moves;
+
         // Check if opposite coloured piece can capture king
-        List<Move> moves = piece.getValidMoves(board);
+        if(piece.getPieceType().equals(PieceType.KING)) {
+          assert piece instanceof King;
+          King king = (King) piece;
+          // This prevents an infinite loop
+          // Since getValidMoves calls isInCheck
+          moves = king.getValidMoves(board, true);
+        } else {
+          moves = piece.getValidMoves(board);
+        }
 
         Optional<Move> maybeMoveCheck = moves
             .stream()
@@ -101,7 +113,6 @@ public class King extends DefaultPiece implements Piece {
     }
 
     return false;
-    */
   }
 
   public Piece copy() {
