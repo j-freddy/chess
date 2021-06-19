@@ -54,6 +54,10 @@ public class Move {
     return Objects.hash(piece, posTo);
   }
 
+  public Move copy() {
+    return new Move(piece.copy(), posTo.copy());
+  }
+
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();

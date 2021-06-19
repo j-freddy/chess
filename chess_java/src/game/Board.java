@@ -77,6 +77,12 @@ public class Board {
     }
   }
 
+  public Piece getPieceAtPosition(Position position) {
+    Optional<Piece> maybePiece = findPieceAtPosition(position);
+    assert maybePiece.isPresent();
+    return maybePiece.get();
+  }
+
   public King getKing(Colour colour) {
     List<Piece> kings = pieces
         .stream()
@@ -90,7 +96,7 @@ public class Board {
   }
 
   public Board copy() {
-    ArrayList<Piece> piecesCopy = new ArrayList<Piece>();
+    ArrayList<Piece> piecesCopy = new ArrayList<>();
 
     for (Piece piece : pieces) {
       piecesCopy.add(piece.copy());

@@ -13,5 +13,6 @@ public interface Piece {
   Position getPosition();
   void setPosition(Position position);
   List<Move> getValidMoves(Board board);
+  List<Move> getFilteredValidMoves(Board board);
   Piece copy();
 }

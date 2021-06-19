@@ -90,6 +90,10 @@ public class Pawn extends DefaultPiece implements Piece {
 
   @Override
   public String toString() {
-    return "";
+    if (colour.equals(Colour.WHITE)) {
+      return "P";
+    } else {
+      return "p";
+    }
   }
 }

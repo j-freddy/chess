@@ -142,7 +142,7 @@ public class BoardController {
     GraphicsContext ctx = canvas.getGraphicsContext2D();
 
     Piece piece = selectedPiece.get();
-    List<Move> moves = piece.getValidMoves(getBoard());
+    List<Move> moves = piece.getFilteredValidMoves(getBoard());
 
     for (Move move : moves) {
       // x depends on column

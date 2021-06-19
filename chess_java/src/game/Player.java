@@ -3,12 +3,14 @@ package game;
 import game.misc.Colour;
 import game.misc.Move;
 import game.misc.Position;
+import game.pieces.King;
 import game.pieces.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Player {
   private Colour colour;
@@ -28,30 +30,34 @@ public class Player {
 
     for (Piece piece : board.getPieces()) {
       if (piece.getColour().equals(colour)) {
-        moves.addAll(piece.getValidMoves(board));
+        moves.addAll(piece.getFilteredValidMoves(board));
       }
     }
 
     return moves;
   }
 
-  public boolean makeMove(Move move, boolean mustBeValid) {
+  private boolean makeMove(Move move, boolean mustBeValid, Board b) {
     if (mustBeValid && !getValidMoves().contains(move)) {
       // Trying to make an invalid move
       return false;
     }
 
     // If there is a piece, capture that piece.
-    Optional<Piece> maybePiece = board.findPieceAtPosition(move.getPosTo());
+    Optional<Piece> maybePiece = b.findPieceAtPosition(move.getPosTo());
     if (maybePiece.isPresent()) {
       Piece pieceToCapture = maybePiece.get();
-      board.removePiece(pieceToCapture);
+      b.removePiece(pieceToCapture);
     }
 
     // Move piece to square
     move.getPiece().setPosition(move.getPosTo());
 
     return true;
+  }
+
+  public boolean makeMove(Move move, boolean mustBeValid) {
+    return makeMove(move, mustBeValid, board);
   }
 
   public boolean makeMove(Move move) {
