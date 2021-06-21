@@ -34,6 +34,12 @@ public class King extends DefaultPiece implements Piece {
       case 5 -> pos.moveRight().moveDown();
       case 6 -> pos.moveDown();
       case 7 -> pos.moveLeft().moveDown();
+      case 8 -> {
+        // To do: castle kingside
+      }
+      case 9 -> {
+        // To do: castle queenside
+      }
     }
 
     Move move = new Move(piece, pos);
@@ -45,7 +51,7 @@ public class King extends DefaultPiece implements Piece {
   private List<Move> getValidMoves(Board board, boolean canMoveIntoCheck) {
     ArrayList<Move> moves = new ArrayList<>();
 
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 10; i++) {
       Board boardCopy = board.copy();
       King kingCopy = boardCopy.getKing(colour);
       Position newPos = makeMove(kingCopy, boardCopy, i);

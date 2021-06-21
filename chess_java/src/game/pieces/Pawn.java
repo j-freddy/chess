@@ -83,6 +83,12 @@ public class Pawn extends DefaultPiece implements Piece {
     return moves;
   }
 
+  public void promote(Board board) {
+    Piece piece = new Queen(colour, position);
+    board.removePiece(this);
+    board.addPiece(piece);
+  }
+
   @Override
   public Piece copy() {
     return new Pawn(colour, position.copy());

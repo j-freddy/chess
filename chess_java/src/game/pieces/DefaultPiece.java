@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 
 public class DefaultPiece implements Piece {
 
+  private boolean hasMoved;
   protected Colour colour;
   protected Position position;
 
@@ -32,6 +33,16 @@ public class DefaultPiece implements Piece {
   @Override
   public Position getPosition() {
     return position;
+  }
+
+  @Override
+  public boolean getHasMoved() {
+    return hasMoved;
+  }
+
+  @Override
+  public void setHasMovedTrue() {
+    hasMoved = true;
   }
 
   @Override

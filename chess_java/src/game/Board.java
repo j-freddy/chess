@@ -33,8 +33,14 @@ public class Board {
     return pieces;
   }
 
+  public void addPiece(Piece piece) { pieces.add(piece); }
+
   public void removePiece(Piece piece) {
     pieces.remove(piece);
+  }
+
+  public int getLastRow(Colour colour) {
+    return (colour == Colour.WHITE) ? (noRows - 1) : 0;
   }
 
   private void setUpBoard() {

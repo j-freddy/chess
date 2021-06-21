@@ -4,6 +4,7 @@ import game.misc.Colour;
 import game.misc.Move;
 import game.misc.Position;
 import game.pieces.King;
+import game.pieces.Pawn;
 import game.pieces.Piece;
 
 import java.util.ArrayList;
@@ -51,7 +52,17 @@ public class Player {
     }
 
     // Move piece to square
-    move.getPiece().setPosition(move.getPosTo());
+    Piece piece = move.getPiece();
+    piece.setPosition(move.getPosTo());
+
+    // Promote pawn if needed
+    if (piece instanceof Pawn && piece.onLastRow(board)) {
+      Pawn pawn = (Pawn) piece;
+      pawn.promote(board);
+    }
+
+    // Record that this piece has been moved
+    piece.setHasMovedTrue();
 
     return true;
   }
